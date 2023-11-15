@@ -27,6 +27,7 @@ public class ExpenseTrackerView extends JFrame {
   private JTextField amountFilterField;
   private JButton amountFilterBtn;
 
+  private JButton undoBtn;
   
 
   public ExpenseTrackerView() {
@@ -62,7 +63,8 @@ public class ExpenseTrackerView extends JFrame {
     amountFilterField = new JTextField(10);
     amountFilterBtn = new JButton("Filter by Amount");
   
-
+    //Declare an undo UI widget and method
+    undoBtn = new JButton("Undo");
   
     // Layout components
     JPanel inputPanel = new JPanel();
@@ -75,6 +77,7 @@ public class ExpenseTrackerView extends JFrame {
     JPanel buttonPanel = new JPanel();
     buttonPanel.add(amountFilterBtn);
     buttonPanel.add(categoryFilterBtn);
+    buttonPanel.add(undoBtn);
   
     // Add panels to frame
     add(inputPanel, BorderLayout.NORTH);
@@ -133,6 +136,12 @@ public class ExpenseTrackerView extends JFrame {
     amountFilterBtn.addActionListener(listener);
   }
 
+  // for undo button
+  public void addUndoListener(ActionListener listener) {
+    undoBtn.addActionListener(listener);
+  }
+
+
   public double getAmountFilterInput() {
     String input = JOptionPane.showInputDialog(this, "Enter Amount Filter:");
     try {
@@ -174,6 +183,7 @@ public class ExpenseTrackerView extends JFrame {
   }
 
 
+
   public void highlightRows(List<Integer> rowIndexes) {
       // The row indices are being used as hashcodes for the transactions.
       // The row index directly maps to the the transaction index in the list.
@@ -193,6 +203,12 @@ public class ExpenseTrackerView extends JFrame {
 
       transactionsTable.repaint();
   }
+
+  // This method will enable/disable the undo button based on the boolean parameter.
+  public void setUndoEnabled(boolean enabled) {
+      undoBtn.setEnabled(enabled);
+  }
+
 
 
 }
