@@ -76,9 +76,7 @@ public class ExpenseTrackerController {
     List<Transaction> transactions = model.getTransactions();
     //raise an error if the transactions list is empty
     if(transactions.isEmpty()){
-      JOptionPane.showMessageDialog(view, "No transactions to undo");
-      view.toFront();
-      return false;
+      throw new RuntimeException("No transaction found");
     }
     else if (rowIndex != -1) {
       Transaction t = transactions.get(rowIndex);
