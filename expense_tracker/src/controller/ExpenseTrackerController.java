@@ -72,12 +72,19 @@ public class ExpenseTrackerController {
       view.toFront();}
 
   }
-  
-  public void removeTransaction(int rowIndex) {
+  public void undo(int rowIndex) {
     List<Transaction> transactions = model.getTransactions();
-    Transaction t = transactions.get(rowIndex);
-    model.removeTransaction(t);
-    refresh();
+    //raise an error if the transactions list is empty
+    if(transactions.isEmpty()){
+      JOptionPane.showMessageDialog(view, "No transactions to undo");
+      view.toFront();
+    }
+    else if (rowIndex != -1) {
+      Transaction t = transactions.get(rowIndex);
+      model.removeTransaction(t);
+      refresh();
+    }
   }
+
 
 }
